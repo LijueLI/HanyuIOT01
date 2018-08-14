@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "149816036016",
+    "firebase_url": "https://hanyuiot01.firebaseio.com",
+    "project_id": "hanyuiot01",
+    "storage_bucket": "hanyuiot01.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:149816036016:android:97a99fcdfc69f663",
+        "android_client_info": {
+          "package_name": "com.hanyutech.hanyuiot01"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "149816036016-hrhk5uqqu2kpt1rj8soh351oc3fndh0v.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.hanyutech.hanyuiot01",
+            "certificate_hash": "c346002d123a6934b2e76f182ee7011ec5a3ff21"
+          }
+        },
+        {
+          "client_id": "149816036016-9qm1n5n96l8se5tnvlr8egsqea3hecdu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyATtgNTZDLvHagI5xX7G8PderDji7BJuzM"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "149816036016-9qm1n5n96l8se5tnvlr8egsqea3hecdu.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

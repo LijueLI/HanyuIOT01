@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">HanyuIOT01</string>
+    <string name="Wifconnect">Wifi設定</string>
+    <string name="DataDisplay">設備資料</string>
+    <string name="ssid_title">SSID: </string>
+    <string name="bssid_title">BSSID: </string>
+    <string name="password_title">Password: </string>
+    <string name="device_count_title">Device count: </string>
+    <string name="confirm">Confirm</string>
+    <string name="wifi_5g_message">Device dose not support 5G Wifi</string>
+</resources>
