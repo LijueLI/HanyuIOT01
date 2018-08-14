@@ -78,6 +78,7 @@ public class EsptouchDemoActivity extends AppCompatActivity implements OnClickLi
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.esptouch_demo_activity);
+        setTitle("Wifi設置");
 
         mApSsidTV = findViewById(R.id.ap_ssid_text);
         mApBssidTV = findViewById(R.id.ap_bssid_text);
@@ -213,7 +214,7 @@ public class EsptouchDemoActivity extends AppCompatActivity implements OnClickLi
         protected void onPreExecute() {
             Activity activity = mActivity.get();
             mProgressDialog = new ProgressDialog(activity);
-            mProgressDialog.setMessage("Esptouch is configuring, please wait for a moment...");
+            mProgressDialog.setMessage("Wifi is configuring, please wait for a moment...");
             mProgressDialog.setCanceledOnTouchOutside(false);
             mProgressDialog.setOnCancelListener(new OnCancelListener() {
                 @Override
@@ -295,11 +296,11 @@ public class EsptouchDemoActivity extends AppCompatActivity implements OnClickLi
                 if (firstResult.isSuc()) {
                     StringBuilder sb = new StringBuilder();
                     for (IEsptouchResult resultInList : result) {
-                        sb.append("Esptouch success, bssid = ")
-                                .append(resultInList.getBssid())
-                                .append(", InetAddress = ")
-                                .append(resultInList.getInetAddress().getHostAddress())
-                                .append("\n");
+                        sb.append("Esptouch success");
+                                //.append(resultInList.getBssid())
+                                //.append(", InetAddress = ")
+                                //.append(resultInList.getInetAddress().getHostAddress())
+                                //.append("\n");
                         count++;
                         if (count >= maxDisplayCount) {
                             break;
@@ -312,7 +313,7 @@ public class EsptouchDemoActivity extends AppCompatActivity implements OnClickLi
                     }
                     mResultDialog.setMessage(sb.toString());
                 } else {
-                    mResultDialog.setMessage("Esptouch fail");
+                    mResultDialog.setMessage("Wifi設置錯誤");
                 }
 
                 mResultDialog.show();

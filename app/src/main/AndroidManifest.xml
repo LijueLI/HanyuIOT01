@@ -22,7 +22,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".Datadisplay" />
-        <activity android:name=".Wificonnect"></activity>
+        <activity android:name=".EsptouchDemoActivity"></activity>
     </application>
 
 </manifest>
