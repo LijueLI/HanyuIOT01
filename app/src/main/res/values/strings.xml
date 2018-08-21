@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">翰宇電子科技公司-</string>
+    <string name="app_name">翰宇電子科技公司-定位器</string>
     <string name="Wifconnect">Wifi設定</string>
     <string name="DataDisplay">設備資料</string>
     <string name="ssid_title">SSID: </string>
