@@ -97,7 +97,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="28dp"
                 android:layout_weight="1"
-                android:text="PM10.0 : "
+                android:text="PM10 : "
                 android:textAlignment="viewStart"
                 android:textSize="18sp" />
 

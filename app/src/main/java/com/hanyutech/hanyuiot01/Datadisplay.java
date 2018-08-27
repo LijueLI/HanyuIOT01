@@ -61,6 +61,7 @@ public class Datadisplay extends AppCompatActivity implements OnMapReadyCallback
 
 
         DatabaseReference Obj = database.getReference("test1");
+        DatabaseReference Obj2 = database.getReference("test");
         DatabaseReference PM10 = Obj.child("PM10");
         DatabaseReference PM100 = Obj.child("PM100");
         DatabaseReference PM25 = Obj.child("PM25");
@@ -68,6 +69,8 @@ public class Datadisplay extends AppCompatActivity implements OnMapReadyCallback
         DatabaseReference flon = Obj.child("flon");
         final DatabaseReference humidity = Obj.child("humidity");
         DatabaseReference temperature = Obj.child("temperature");
+
+        //.setValue(null);
 
         Obj.addValueEventListener(new ValueEventListener() {
             @Override
