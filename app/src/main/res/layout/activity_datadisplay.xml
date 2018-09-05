@@ -6,6 +6,22 @@
     android:layout_height="match_parent"
     tools:context=".Datadisplay">
 
+    <Button
+        android:id="@+id/google"
+        android:layout_width="98dp"
+        android:layout_height="38dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/googlemap"
+        android:textAllCaps="false"
+        app:layout_constraintBottom_toTopOf="@+id/map"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout"
+        app:layout_constraintVertical_bias="0.666" />
+
     <LinearLayout
         android:id="@+id/linearLayout"
         android:layout_width="354dp"
@@ -31,7 +47,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="28dp"
                 android:layout_weight="1"
-                android:text="PM1.0 : "
+                android:text="@string/PM10"
                 android:textAlignment="viewStart"
                 android:textSize="18sp" />
 
@@ -49,7 +65,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="28dp"
                 android:layout_weight="1"
-                android:text="ug/m^3"
+                android:text="@string/PM_unit"
                 android:textAlignment="center"
                 android:textSize="18sp" />
         </LinearLayout>
@@ -64,7 +80,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="28dp"
                 android:layout_weight="1"
-                android:text="PM2.5 : "
+                android:text="@string/PM25"
                 android:textAlignment="viewStart"
                 android:textSize="18sp" />
 
@@ -82,7 +98,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="28dp"
                 android:layout_weight="1"
-                android:text="ug/m^3"
+                android:text="@string/PM_unit"
                 android:textAlignment="center"
                 android:textSize="18sp" />
         </LinearLayout>
@@ -97,7 +113,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="28dp"
                 android:layout_weight="1"
-                android:text="PM10 : "
+                android:text="@string/PM100"
                 android:textAlignment="viewStart"
                 android:textSize="18sp" />
 
@@ -115,7 +131,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="28dp"
                 android:layout_weight="1"
-                android:text="ug/m^3"
+                android:text="@string/PM_unit"
                 android:textAlignment="center"
                 android:textSize="18sp" />
         </LinearLayout>
@@ -130,7 +146,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="28dp"
                 android:layout_weight="1"
-                android:text="Humidity : "
+                android:text="@string/Humidity"
                 android:textAlignment="viewStart"
                 android:textSize="18sp" />
 
@@ -148,7 +164,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="28dp"
                 android:layout_weight="1"
-                android:text="%"
+                android:text="@string/Humidity_umit"
                 android:textAlignment="center"
                 android:textSize="18sp" />
 
@@ -164,7 +180,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="28dp"
                 android:layout_weight="1"
-                android:text="Temperature : "
+                android:text="@string/Temperature"
                 android:textAlignment="viewStart"
                 android:textSize="18sp" />
 
@@ -182,7 +198,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="28dp"
                 android:layout_weight="1"
-                android:text="C"
+                android:text="@string/temperture_unit"
                 android:textAlignment="center"
                 android:textSize="18sp" />
         </LinearLayout>
@@ -194,10 +210,10 @@
 
             <TextView
                 android:id="@+id/Lat_Key"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="28dp"
                 android:layout_weight="1"
-                android:text="Latitude : "
+                android:text="@string/Latitude"
                 android:textSize="18sp" />
 
             <TextView
@@ -217,10 +233,10 @@
 
             <TextView
                 android:id="@+id/Long_Key"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="28dp"
                 android:layout_weight="1"
-                android:text="Longitude"
+                android:text="@string/Longitude"
                 android:textSize="18sp" />
 
             <TextView
@@ -250,5 +266,54 @@
         app:layout_constraintTop_toBottomOf="@+id/linearLayout"
         app:layout_constraintVertical_bias="0.804"
         map:cameraZoom = "15"/>
+
+    <com.amap.api.maps2d.MapView
+        android:id="@+id/map"
+        android:layout_width="352dp"
+        android:layout_height="279dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.488"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout"
+        app:layout_constraintVertical_bias="0.803" />
+
+    <Button
+        android:id="@+id/GD"
+        android:layout_width="103dp"
+        android:layout_height="38dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/GDmap"
+        app:layout_constraintBottom_toTopOf="@+id/map"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.6"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout"
+        app:layout_constraintVertical_bias="0.666" />
+
+    <TextView
+        android:id="@+id/maptitle"
+        android:layout_width="116dp"
+        android:layout_height="27dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/googlemap"
+        android:textColor="#000000"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/map"
+        app:layout_constraintEnd_toStartOf="@+id/GD"
+        app:layout_constraintHorizontal_bias="0.228"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout"
+        app:layout_constraintVertical_bias="1.0" />
 
 </android.support.constraint.ConstraintLayout>
