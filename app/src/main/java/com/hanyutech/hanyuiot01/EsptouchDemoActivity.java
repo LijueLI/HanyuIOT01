@@ -19,7 +19,9 @@ import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -46,6 +48,7 @@ public class EsptouchDemoActivity extends AppCompatActivity implements OnClickLi
     private EditText mApPasswordET;
     private EditText mDeviceCountET;
     private Button mConfirmBtn;
+    private Switch PM_Switch,GPS_Switch,HT_Switch;
 
     private IEsptouchListener myListener = new IEsptouchListener() {
 
@@ -78,19 +81,35 @@ public class EsptouchDemoActivity extends AppCompatActivity implements OnClickLi
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.esptouch_demo_activity);
-        setTitle("Wifi設置");
+        setTitle("系統設置");
 
         mApSsidTV = findViewById(R.id.ap_ssid_text);
         mApBssidTV = findViewById(R.id.ap_bssid_text);
         mApPasswordET = findViewById(R.id.ap_password_edit);
         mDeviceCountET = findViewById(R.id.device_count_edit);
+        PM_Switch = findViewById(R.id.PM_Switch);
+        GPS_Switch = findViewById(R.id.GPS_Switch);
+        HT_Switch = findViewById(R.id.HT_Switch);
         mDeviceCountET.setText("1");
         mConfirmBtn = findViewById(R.id.confirm_btn);
         mConfirmBtn.setEnabled(false);
         mConfirmBtn.setOnClickListener(this);
 
-        TextView versionTV = findViewById(R.id.version_tv);
-        versionTV.setText(IEsptouchTask.ESPTOUCH_VERSION);
+        PM_Switch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                SettingDBHelper SetDB = new SettingDBHelper(EsptouchDemoActivity.this);
+                if(isChecked){
+                    long i = SetDB.updatePM(1);
+                    Log.d("update",String.valueOf(i));
+                }
+                else {
+                    long i = SetDB.updatePM(0);
+                    Log.d("update",String.valueOf(i));
+                }
+                SetDB.close();
+            }
+        });
 
         IntentFilter filter = new IntentFilter(WifiManager.NETWORK_STATE_CHANGED_ACTION);
         registerReceiver(mReceiver, filter);

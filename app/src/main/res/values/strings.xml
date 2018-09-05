@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">翰宇電子科技公司-定位器</string>
+    <string name="app_name">翰宇電子科技公司-智能系統</string>
     <string name="Wifconnect">Wifi設定</string>
     <string name="DataDisplay">設備資料</string>
     <string name="ssid_title">SSID: </string>
@@ -10,4 +10,19 @@
     <string name="wifi_5g_message">Device dose not support 5G Wifi</string>
     <string name="map">觀看地圖</string>
     <string name="title_activity_map">Map</string>
+    <string name="googlemap">GoogleMap</string>
+    <string name="GDmap">高德地圖</string>
+    <string name="temperture_unit">°C</string>
+    <string name="PM_unit">ug/m^3</string>
+    <string name="Humidity_umit">%</string>
+    <string name="PM10">PM1.0 :</string>
+    <string name="PM25">PM2.5 :</string>
+    <string name="PM100">PM10 :</string>
+    <string name="Humidity">Humidity :</string>
+    <string name="Temperature">Temperature :</string>
+    <string name="Latitude">Latitude :</string>
+    <string name="Longitude">Longitude :</string>
+    <string name="PMSwitch">空氣品質開關</string>
+    <string name="HTSwitch">溫溼度開關</string>
+    <string name="GPSSwitch">GPS開關</string>
 </resources>
