@@ -38,6 +38,7 @@
         app:layout_constraintVertical_bias="0.023">
 
         <LinearLayout
+            android:id="@+id/PM10_L"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
@@ -71,6 +72,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/PM25_L"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
@@ -104,6 +106,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/PM100_L"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
@@ -137,6 +140,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/H_L"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
@@ -171,6 +175,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/T_L"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
@@ -204,6 +209,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/Lat_L"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
@@ -227,6 +233,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/Lon_L"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">

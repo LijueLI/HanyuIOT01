@@ -8,6 +8,7 @@ import android.content.DialogInterface;
 import android.content.DialogInterface.OnCancelListener;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.database.Cursor;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.os.AsyncTask;
@@ -15,6 +16,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.text.BoringLayout;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -49,6 +51,7 @@ public class EsptouchDemoActivity extends AppCompatActivity implements OnClickLi
     private EditText mDeviceCountET;
     private Button mConfirmBtn;
     private Switch PM_Switch,GPS_Switch,HT_Switch;
+    private SettingDBHelper SetDB;
 
     private IEsptouchListener myListener = new IEsptouchListener() {
 
@@ -95,26 +98,74 @@ public class EsptouchDemoActivity extends AppCompatActivity implements OnClickLi
         mConfirmBtn.setEnabled(false);
         mConfirmBtn.setOnClickListener(this);
 
+        SetDB = new SettingDBHelper(EsptouchDemoActivity.this);
+
         PM_Switch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                SettingDBHelper SetDB = new SettingDBHelper(EsptouchDemoActivity.this);
                 if(isChecked){
                     long i = SetDB.updatePM(1);
                     Log.d("update",String.valueOf(i));
                 }
                 else {
                     long i = SetDB.updatePM(0);
+                    if(i == 0){
+                        SetDB.insert(0,1,1);
+                    }
                     Log.d("update",String.valueOf(i));
                 }
-                SetDB.close();
             }
         });
+        HT_Switch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked){
+                    long i = SetDB.updateHT(1);
+                    Log.d("update",String.valueOf(i));
+                }
+                else {
+                    long i = SetDB.updateHT(0);
+                    if(i == 0){
+                        SetDB.insert(1,0,1);
+                    }
+                    Log.d("update",String.valueOf(i));
+                }
+            }
+        });
+        GPS_Switch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked){
+                    long i = SetDB.updateGPS(1);
+                    Log.d("update",String.valueOf(i));
+                }
+                else {
+                    long i = SetDB.updateGPS(0);
+                    if(i == 0){
+                        SetDB.insert(1,1,0);
+                    }
+                    Log.d("update",String.valueOf(i));
+                }
+            }
+        });
+        Cursor cursor = SetDB.selectfromID(1);
+        cursor.moveToFirst();
+        if(cursor.getCount()!=0){ ;
+            GPS_Switch.setChecked(cursor.getInt(cursor.getColumnIndexOrThrow("_GPS"))==1);
+            HT_Switch.setChecked(cursor.getInt(cursor.getColumnIndexOrThrow("_HT"))==1);
+            PM_Switch.setChecked(cursor.getInt(cursor.getColumnIndexOrThrow("_PM"))==1);
+        }
+        else{
+            GPS_Switch.setChecked(true);
+            HT_Switch.setChecked(true);
+            PM_Switch.setChecked(true);
+        }
+        cursor.close();
+        SetDB.close();
 
         IntentFilter filter = new IntentFilter(WifiManager.NETWORK_STATE_CHANGED_ACTION);
         registerReceiver(mReceiver, filter);
     }
-
     @Override
     protected void onDestroy() {
         super.onDestroy();
@@ -315,7 +366,7 @@ public class EsptouchDemoActivity extends AppCompatActivity implements OnClickLi
                 if (firstResult.isSuc()) {
                     StringBuilder sb = new StringBuilder();
                     for (IEsptouchResult resultInList : result) {
-                        sb.append("Esptouch success");
+                        sb.append("Wifi 連線成功");
                                 //.append(resultInList.getBssid())
                                 //.append(", InetAddress = ")
                                 //.append(resultInList.getInetAddress().getHostAddress())
@@ -332,7 +383,7 @@ public class EsptouchDemoActivity extends AppCompatActivity implements OnClickLi
                     }
                     mResultDialog.setMessage(sb.toString());
                 } else {
-                    mResultDialog.setMessage("Wifi設置錯誤");
+                    mResultDialog.setMessage("Wifi無法連線或密碼錯誤");
                 }
 
                 mResultDialog.show();

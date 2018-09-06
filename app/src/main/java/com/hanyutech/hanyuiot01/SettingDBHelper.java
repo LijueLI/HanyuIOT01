@@ -2,6 +2,7 @@ package com.hanyutech.hanyuiot01;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
@@ -40,18 +41,23 @@ public class SettingDBHelper extends SQLiteOpenHelper{
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv= new ContentValues();
         cv.put("_PM",PM);
-        return db.update("SETTING",cv,"_id=0",null);
+        return db.update("SETTING",cv,"_id=1",null);
     }
     public long updateHT(int HT){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv= new ContentValues();
         cv.put("_HT",HT);
-        return db.update("SETTING",cv,"_id=0",null);
+        return db.update("SETTING",cv,"_id=1",null);
     }
     public long updateGPS(int GPS){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv= new ContentValues();
         cv.put("_GPS",GPS);
-        return db.update("SETTING",cv,"_id=0",null);
+        return db.update("SETTING",cv,"_id=1",null);
+    }
+    public Cursor selectfromID(int ID){
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.query("SETTING",null,"_id = "+Integer.toString(ID),null,null,null,null);
+        return cursor;
     }
 }
