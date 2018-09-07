@@ -45,11 +45,12 @@
         -->
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="@string/google_maps_key" />
+            android:value="AIzaSyAIDNu_Sk6JVB4pTaH-nn7BPmZpxYYT9uQ" />
         <meta-data
             android:name="com.amap.api.v2.apikey"
             android:value="1f13847492c431a97d728e28f152907b" />
 
+        <activity android:name=".DeviceChoose"></activity>
     </application>
 
 </manifest>

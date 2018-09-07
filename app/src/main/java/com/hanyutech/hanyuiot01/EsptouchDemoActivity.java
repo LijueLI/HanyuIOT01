@@ -154,6 +154,7 @@ public class EsptouchDemoActivity extends AppCompatActivity implements OnClickLi
             GPS_Switch.setChecked(cursor.getInt(cursor.getColumnIndexOrThrow("_GPS"))==1);
             HT_Switch.setChecked(cursor.getInt(cursor.getColumnIndexOrThrow("_HT"))==1);
             PM_Switch.setChecked(cursor.getInt(cursor.getColumnIndexOrThrow("_PM"))==1);
+            mApPasswordET.setText(cursor.getString(cursor.getColumnIndexOrThrow("_WifiPwd")));
         }
         else{
             GPS_Switch.setChecked(true);
@@ -231,6 +232,13 @@ public class EsptouchDemoActivity extends AppCompatActivity implements OnClickLi
             if(mTask != null) {
                 mTask.cancelEsptouch();
             }
+            SetDB = new SettingDBHelper(EsptouchDemoActivity.this);
+            long i = SetDB.updateWifi(mApPasswordET.getText().toString());
+            if(i == 0){
+                SetDB.insert(1,1,1);
+                SetDB.updateWifi(mApPasswordET.getText().toString());
+            }
+            SetDB.close();
             mTask = new EsptouchAsyncTask4(this);
             mTask.execute(ssid, bssid, password, deviceCount);
         }

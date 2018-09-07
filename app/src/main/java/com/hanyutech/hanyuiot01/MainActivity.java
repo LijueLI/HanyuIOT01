@@ -18,7 +18,7 @@ public class MainActivity extends AppCompatActivity {
         Datadisplay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, com.hanyutech.hanyuiot01.Datadisplay.class);
+                Intent intent = new Intent(MainActivity.this, DeviceChoose.class);
                 startActivity(intent);
             }
         });

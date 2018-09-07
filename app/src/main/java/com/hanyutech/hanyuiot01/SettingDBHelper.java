@@ -22,7 +22,8 @@ public class SettingDBHelper extends SQLiteOpenHelper{
                 "(_id INTEGER PRIMARY KEY  NOT NULL," +
                 "_PM INTEGER," +
                 "_HT INTEGER," +
-                "_GPS INTEGER)");
+                "_GPS INTEGER,"+
+                "_WifiPwd VARCHAR)");
     }
 
     @Override
@@ -53,6 +54,12 @@ public class SettingDBHelper extends SQLiteOpenHelper{
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv= new ContentValues();
         cv.put("_GPS",GPS);
+        return db.update("SETTING",cv,"_id=1",null);
+    }
+    public long updateWifi(String Wifipwd){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues cv= new ContentValues();
+        cv.put("_Wifipwd",Wifipwd);
         return db.update("SETTING",cv,"_id=1",null);
     }
     public Cursor selectfromID(int ID){

@@ -1,9 +1,13 @@
 package com.hanyutech.hanyuiot01;
 
+import android.content.Intent;
 import android.database.Cursor;
+import android.database.DatabaseUtils;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -17,6 +21,7 @@ import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -28,21 +33,25 @@ import java.util.Set;
 public class Datadisplay extends AppCompatActivity implements OnMapReadyCallback{
 
     private FirebaseDatabase database = FirebaseDatabase.getInstance();
-    private TextView temp,humi,lat,lon,pm25,pm10,pm100,maptitile;
+    private TextView temp,humi,lat,lon,pm25,pm10,pm100,maptitile,wifi;
     private MapView mapViewGoogle;
     private com.amap.api.maps2d.MapView mapViewGD;
     private GoogleMap googleMap;
     private AMap aMap = null;
     private static final String MAP_VIEW_BUNDLE_KEY = "AIzaSyCnK90HIqo4kvvH6-wFqvJbWGHmWfdBqvY";
     private Double Longitude = 0.0,Latitude = 0.0;
-    private Button SW_Google,SW_GD;
+    private Button SW_Google,SW_GD,Center;
     private Boolean First = true;
     private LinearLayout PM10,PM25,PM100,H,T,Lat,Lon;
+    private Iterable<DataSnapshot> iterable;
+    private String Devicename;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_datadisplay);
+        Intent intent = getIntent();
+        Devicename = intent.getStringExtra("Devicename");
 
         Bundle mapViewBundle = null;
         if(savedInstanceState != null){
@@ -65,12 +74,15 @@ public class Datadisplay extends AppCompatActivity implements OnMapReadyCallback
         pm10 = findViewById(R.id.PM10_Value);
         pm25 = findViewById(R.id.PM25_Value);
         pm100 = findViewById(R.id.PM100_Value);
+        wifi = findViewById(R.id.Wifi_Value);
         maptitile = findViewById(R.id.maptitle);
         SW_Google = findViewById(R.id.google);
         SW_GD = findViewById(R.id.GD);
+        Center = findViewById(R.id.Center);
         PM10 = findViewById(R.id.PM10_L);
         PM25 = findViewById(R.id.PM25_L);
         PM100 = findViewById(R.id.PM100_L);
+
         H = findViewById(R.id.H_L);
         T = findViewById(R.id.T_L);
         Lat = findViewById(R.id.Lat_L);
@@ -97,24 +109,30 @@ public class Datadisplay extends AppCompatActivity implements OnMapReadyCallback
                 mapViewGD.setVisibility(View.INVISIBLE);
                 mapViewGoogle.setVisibility(View.INVISIBLE);
                 maptitile.setVisibility(View.INVISIBLE);
+                Center.setVisibility(View.INVISIBLE);
             }
-
         }
 
-        DatabaseReference Obj = database.getReference("test1");
+
+
+        DatabaseReference root = database.getReference("Devices");
+        DatabaseReference Device = root.child(Devicename);
+        DatabaseReference Obj = Device.child("set");
         DatabaseReference PM10 = Obj.child("PM10");
         DatabaseReference PM100 = Obj.child("PM100");
         DatabaseReference PM25 = Obj.child("PM25");
         DatabaseReference flat = Obj.child("flat");
         DatabaseReference flon = Obj.child("flon");
-        final DatabaseReference humidity = Obj.child("humidity");
+        DatabaseReference humidity = Obj.child("humidity");
         DatabaseReference temperature = Obj.child("temperature");
+        DatabaseReference Wifi = Obj.child("SSID");
 
         //.setValue(null);
 
         Obj.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                
                 Latitude=Double.parseDouble(dataSnapshot.child("flat").getValue(String.class));
                 Longitude=Double.parseDouble(dataSnapshot.child("flon").getValue(String.class));
                 googleMap.clear();
@@ -129,12 +147,12 @@ public class Datadisplay extends AppCompatActivity implements OnMapReadyCallback
                     First = false;
                 }
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
 
             }
         });
+
 
         PM10.addValueEventListener(new ValueEventListener() {
             @Override
@@ -222,6 +240,18 @@ public class Datadisplay extends AppCompatActivity implements OnMapReadyCallback
             }
         });
 
+        Wifi.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                wifi.setText(dataSnapshot.getValue().toString());
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
         SW_Google.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -238,6 +268,15 @@ public class Datadisplay extends AppCompatActivity implements OnMapReadyCallback
                 mapViewGD.setVisibility(View.VISIBLE);
                 maptitile.setText(R.string.GDmap);
 
+            }
+        });
+        Center.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                LatLng current = new LatLng(Latitude,Longitude);
+                com.amap.api.maps2d.model.LatLng currentGD = new com.amap.api.maps2d.model.LatLng(Latitude,Longitude);
+                googleMap.moveCamera(CameraUpdateFactory.newLatLng(current));
+                aMap.moveCamera(com.amap.api.maps2d.CameraUpdateFactory.newLatLngZoom(currentGD,15));
             }
         });
     }
